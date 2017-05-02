@@ -22,12 +22,12 @@ require_once("cabecalho.php");
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Filtros
-                    <i class="ace-icon fa bigger-125 fa-chevron-down" data-toggle="collapse" href="#collapse2" 
-                       style="float: right; display: inline-block; position: relative;"></i>
+                    <i class="ace-icon fa bigger-125 fa-chevron-down" data-toggle="collapse" data-target="#collFiltros" 
+                       id="paineis-status"></i>
                 </h3>
             </div>
 
-            <div class="panel panel-default collapse in" id="collapse2">
+            <div class="panel panel-default collapse in" id="collFiltros">
 
             </div>
         </div>

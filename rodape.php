@@ -16,5 +16,13 @@
         <script src="js/plugins/morris/raphael.min.js"></script>
         <script src="js/plugins/morris/morris.min.js"></script>
         <script src="js/plugins/morris/morris-data.js"></script>
+        
+        <script>
+           
+            $(window).load(function(){
+                $("[name='<?php echo substr($_SERVER['SCRIPT_NAME'],(strrpos($_SERVER['SCRIPT_NAME'],'/')+1),-4); ?>']").parent().addClass("active"); 
+            });
+        </script>
+        
 </body>
 </html>

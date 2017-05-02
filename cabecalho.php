@@ -26,6 +26,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 
         <!-- Custom CSS -->
         <link href="css/sb-admin.css" rel="stylesheet">
+        <link href="css/estilos.css" rel="stylesheet">
 
         <!-- Morris Charts CSS -->
         <link href="css/plugins/morris.css" rel="stylesheet">
@@ -115,31 +116,31 @@ error_reporting(E_ALL ^ E_NOTICE);
                     </li>
                 </ul>
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-                <div class="collapse navbar-collapse">
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
                         <li>
-                            <a href="minhavisao.php"><i class="fa fa-fw fa-dashboard"></i> Minha Visão</a>
+                            <a href="minhavisao.php" name="minhavisao"><i class="glyphicon glyphicon-home"></i> Minha Visão</a>
                         </li>
                         <li>
-                            <a href="lista-solicitacoes.php"><i class="fa fa-fw fa-dashboard"></i> Lista de Solicitações</a>
+                            <a href="lista-solicitacoes.php" name="lista-solicitacoes"><i class="glyphicon glyphicon-list-alt"></i> Lista de Solicitações</a>
                         </li>
                         <li>
-                            <a href="form-solicitacao.php"><i class="fa fa-fw fa-dashboard"></i> Nova Solicitação</a>
+                            <a href="form-solicitacao.php" name="form-solicitacao"><i class="glyphicon glyphicon-edit"></i> Nova Solicitação</a>
                         </li>
                         <li>
-                            <a href="lista-projetos.php"><i class="fa fa-fw fa-dashboard"></i> Lista de Projetos</a>
+                            <a href="lista-projetos.php" name="lista-projetos"><i class="glyphicon glyphicon-list-alt"></i> Lista de Projetos</a>
                         </li>
                         <li>
-                            <a href="form-projeto.php"><i class="fa fa-fw fa-dashboard"></i> Novo Projeto</a>
+                            <a href="form-projeto.php" name="form-projeto"><i class="glyphicon glyphicon-edit"></i> Novo Projeto</a>
                         </li>
                         <li>
-                            <a href="lista-resumo.php"><i class="fa fa-fw fa-dashboard"></i> Resumo</a>
+                            <a href="lista-resumo.php" name="lista-resumo"><i class="glyphicon glyphicon-stats"></i> Resumo</a>
                         </li>
                         <li>
-                            <a href="bootstrap-elements.php"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
+                            <a href="bootstrap-elements.php" name="bootstrap-elements"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
                         </li>
                         <li>
-                            <a href="blank-page.php"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+                            <a href="blank-page.php" name="blank-page"><i class="fa fa-fw fa-file"></i> Blank Page</a>
                         </li>
                     </ul>
                 </div>
