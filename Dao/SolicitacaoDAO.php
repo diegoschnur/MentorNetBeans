@@ -1,4 +1,4 @@
-<?php
+. <?php
 
 class SolicitacaoDAO {
 
@@ -8,29 +8,29 @@ class SolicitacaoDAO {
         $this->connection = ConnectionDB::getInstance();
     }
 
-    public function insereSolicitacao($solic) {
+    public function insereSolicitacao($solicitacao) {
         try {
 
             $status = $this->connection->prepare(""
-                    . "INSERT INTO tbl_solicitacoes (nome_sol,dataAbertura_sol,
-                        dataNecessidade_sol,tempoTeste_sol,unidadeMedida_sol,
-                        componentesTestar_sol,metodologia_sol,observacoes_sol,
-                        visibilidade_sol,status_sol,idProjeto_sol,idUsuario_sol)
-                        VALUES (?,?,?,?,?,?,?,?,?,'N',?,?);");
+                    . "INSERT INTO tbl_solicitacoes (nome_sol,dataAbertura_sol,"
+                    . "dataNecessidade_sol,tempoTeste_sol,unidadeMedida_sol,"
+                    . "componentesTestar_sol,metodologia_sol,observacoes_sol,"
+                    . "visibilidade_sol,status_sol,idProjeto_sol,idUsuario_sol) "
+                    . "VALUES (?,?,?,?,?,?,?,?,?,?,?,?);");
 
-            $status->bindValue(1, $solic->nome_sol);
-            $status->bindValue(2, $solic->dataAbertura_sol);
-            $status->bindValue(3, $solic->dataNecessidade_sol);
-            $status->bindValue(4, $solic->tempoTeste_sol);
-            $status->bindValue(5, $solic->unidadeMedida_sol);
-            $status->bindValue(6, $solic->componentesTestar_sol);
-            $status->bindValue(7, $solic->metodologia_sol);
-            $status->bindValue(8, $solic->observacoes_sol);
-            $status->bindValue(9, $solic->visibilidade_sol);
-            $status->bindValue(10, $solic->status_sol);
-            $status->bindValue(11, $solic->idProjeto_sol);
-            $status->bindValue(12, $solic->idUsuario_sol);
-
+            $status->bindValue(1, $solicitacao->nome_sol);
+            $status->bindValue(2, $solicitacao->dataAbertura_sol);
+            $status->bindValue(3, $solicitacao->dataNecessidade_sol);
+            $status->bindValue(4, $solicitacao->tempoTeste_sol);
+            $status->bindValue(5, $solicitacao->unidadeMedida_sol);
+            $status->bindValue(6, $solicitacao->componentesTestar_sol);
+            $status->bindValue(7, $solicitacao->metodologia_sol);
+            $status->bindValue(8, $solicitacao->observacoes_sol);
+            $status->bindValue(9, $solicitacao->visibilidade_sol);
+            $status->bindValue(10, $solicitacao->status_sol);
+            $status->bindValue(11, $solicitacao->idProjeto_sol);
+            $status->bindValue(12, $solicitacao->idUsuario_sol);
+            
             $status->execute();
 
             $this->connection = null;

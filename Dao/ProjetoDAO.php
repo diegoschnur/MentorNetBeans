@@ -42,7 +42,7 @@ class ProjetoDAO {
 
     public function deletaProjeto($param) {
         try {
-            $status = $this->connection->prepare("delete from projetos where id = ?");
+            $status = $this->connection->prepare("delete from tbl_projetos where id = ?");
             $status->bindValue(1, $id);
             $status->execute();
 
