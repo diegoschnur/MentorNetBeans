@@ -33,7 +33,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 
         <!-- Custom Fonts -->
         <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+        
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -119,22 +119,22 @@ error_reporting(E_ALL ^ E_NOTICE);
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
                         <li>
-                            <a href="minhavisao.php" name="minhavisao"><i class="glyphicon glyphicon-home"></i> Minha Visão</a>
+                            <a href="minhavisao.php" name="minhavisao"><i class="fa fa-home"></i> Minha Visão</a>
                         </li>
                         <li>
-                            <a href="lista-solicitacoes.php" name="lista-solicitacoes"><i class="glyphicon glyphicon-list-alt"></i> Lista de Solicitações</a>
+                            <a href="lista-solicitacoes.php" name="lista-solicitacoes"><i class="fa fa-list-alt"></i> Lista de Solicitações</a>
                         </li>
                         <li>
-                            <a href="form-solicitacao.php" name="form-solicitacao"><i class="glyphicon glyphicon-edit"></i> Nova Solicitação</a>
+                            <a href="form-solicitacao.php" name="form-solicitacao"><i class="fa fa-pencil-square-o"></i> Nova Solicitação</a>
                         </li>
                         <li>
-                            <a href="lista-projetos.php" name="lista-projetos"><i class="glyphicon glyphicon-list-alt"></i> Lista de Projetos</a>
+                            <a href="lista-projetos.php" name="lista-projetos"><i class="fa fa-list-alt"></i> Lista de Projetos</a>
                         </li>
                         <li>
-                            <a href="form-projeto.php" name="form-projeto"><i class="glyphicon glyphicon-edit"></i> Novo Projeto</a>
+                            <a href="form-projeto.php" name="form-projeto"><i class="fa fa-pencil-square-o"></i> Novo Projeto</a>
                         </li>
                         <li>
-                            <a href="lista-resumo.php" name="lista-resumo"><i class="glyphicon glyphicon-stats"></i> Resumo</a>
+                            <a href="lista-resumo.php" name="lista-resumo"><i class="fa fa-line-chart"></i> Resumo</a>
                         </li>
                         <li>
                             <a href="bootstrap-elements.php" name="bootstrap-elements"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>

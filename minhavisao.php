@@ -7,7 +7,7 @@ require_once("cabecalho.php");
     <div class="col-lg-12">
         <ol class="breadcrumb">
             <li class="active">
-                <i class="fa fa-dashboard"></i> Minha Visão
+                <i class="fa fa-home"></i> Minha Visão
             </li>
         </ol>
     </div>
@@ -41,7 +41,7 @@ require_once("cabecalho.php");
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-tasks fa-5x"></i>
+                        <i class="fa fa-exchange fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge">12</div>
@@ -63,7 +63,7 @@ require_once("cabecalho.php");
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-shopping-cart fa-5x"></i>
+                        <i class="fa fa-clock-o fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge">3</div>
@@ -85,7 +85,7 @@ require_once("cabecalho.php");
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-support fa-5x"></i>
+                        <i class="fa fa-info-circle fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge">4</div>
@@ -182,20 +182,6 @@ require_once("cabecalho.php");
                                     <td>01/01/2017</td>
                                     <td>01/03/2017</td>
                                     <td>0%</td>
-                                </tr>
-                                <tr>
-                                    <td>S-02/2017</td>
-                                    <td>Nome Solicitação 2</td>
-                                    <td>01/01/2017</td>
-                                    <td>01/03/2017</td>
-                                    <td>50%</td>
-                                </tr>
-                                <tr>
-                                    <td>S-03/2017</td>
-                                    <td>Nome Solicitação 3</td>
-                                    <td>02/01/2017</td>
-                                    <td>02/03/2017</td>
-                                    <td>100%</td>
                                 </tr>
                             </tbody>
                         </table>

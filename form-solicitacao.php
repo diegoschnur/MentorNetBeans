@@ -7,7 +7,7 @@ require_once("cabecalho.php");
     <div class="col-lg-12">
         <ol class="breadcrumb">
             <li>
-                <i class="fa fa-dashboard"></i>  <a href="minhavisao.php">Minha Visão</a>
+                <i class="fa fa-home"></i>  <a href="minhavisao.php">Minha Visão</a>
             </li>
             <li class="active">
                 <i class="fa fa-edit"></i> Nova Solicitação
@@ -30,7 +30,6 @@ require_once("cabecalho.php");
 
                     <form action="./Controller/SolicitacaoController.php" method="post" name="cadSolicitacao">
                         <table class="table table-bordered table-condensed">
-
                             <tr>
                                 <th><label>Projeto</label></th>
                                 <td>
@@ -38,7 +37,7 @@ require_once("cabecalho.php");
                                     $projetoDAO = new ProjetoDAO();
                                     $projetos = $projetoDAO->listaProjetos();
                                     ?>
-                                    <select class="form-control" id="idSolicitacao" name="idProjeto" class="input-sm">
+                                    <select class="form-control" id="idSolicitacao" name="idProjeto_sol" class="input-sm">
                                         <option selected>Selecione um Projeto</option>
                                         <?php
                                         foreach ($projetos as $prj) :
@@ -61,23 +60,23 @@ require_once("cabecalho.php");
                             </tr>
                             <tr>
                                 <th><label>Data de Abertura</label></th>
-                                <td><input class="form-control" type="date" id="dataAbertura_sol"/></td>
+                                <td><input class="form-control" type="date" id="dataAbertura_sol" name="dataAbertura_sol"/></td>
                             </tr>
                             <tr>
                                 <th><label>Data da Necessidade</label></th>
-                                <td><input class="form-control" type="date" id="dataNecessidade_sol"/></td>
+                                <td><input class="form-control" type="date" id="dataNecessidade_sol" name="dataNecessidade_sol"/></td>
                             </tr>
                             <tr>
                                 <th><label>Unidade de Medida</label></th>
                                 <td>
                                     <label>
-                                        <input class="custom-control-input" type="radio" name="unidadeMedida_sol"  checked="true" <?= $solicitacao->HA ?> />
+                                        <input class="custom-control-input" type="radio" name="unidadeMedida_sol"  checked="true" <?= $solicitacao->HA ?> value="HA" />
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Hectares</span>
                                     </label>
                                     &#160;&#160;&#160;&#160;
                                     <label>
-                                        <input class="custom-control-input" type="radio" name="unidadeMedida_sol" <?= $solicitacao->HR ?> />
+                                        <input class="custom-control-input" type="radio" name="unidadeMedida_sol" <?= $solicitacao->HR ?> value="HR" />
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Horas</span>
                                     </label>
@@ -89,15 +88,15 @@ require_once("cabecalho.php");
                             </tr>
                             <tr>
                                 <th><label>Componentes a Testar</label></th>
-                                <td><textarea class="form-control" id="componentesTestar_prj" name="componentesTestar_prj" rows="8" cols="80"></textarea></td>
+                                <td><textarea class="form-control" id="componentesTestar_prj" name="componentesTestar_sol" rows="8" cols="80"></textarea></td>
                             </tr>
                             <tr>
                                 <th><label>Metodologia Sugerida</label></th>
-                                <td><textarea class="form-control" id="metodologia_prj" name="metodologia_prj" rows="8" cols="80"></textarea></td>
+                                <td><textarea class="form-control" id="metodologia_prj" name="metodologia_sol" rows="8" cols="80"></textarea></td>
                             </tr>
                             <tr>
                                 <th><label>Observações</label></th>
-                                <td><textarea class="form-control" id="obs_prj" name="obs_prj" rows="5" cols="80"></textarea></td>
+                                <td><textarea class="form-control" id="obs_prj" name="observacoes_sol" rows="5" cols="80"></textarea></td>
                             </tr>
                             <tr>
                                 <th><label>Enviar arquivos</label></th>
@@ -118,13 +117,13 @@ require_once("cabecalho.php");
                                 <th><label>Visibilidade</label></th>
                                 <td>
                                     <label>
-                                        <input class="custom-control-input" type="radio" name="visibilidade_sol"  checked="true" <?= $solicitacao->PR ?> />
+                                        <input class="custom-control-input" type="radio" name="visibilidade_sol"  checked="true" <?= $solicitacao->PR ?> value="PR"/>
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Privado</span>
                                     </label>
                                     &#160;&#160;&#160;&#160;
                                     <label>
-                                        <input class="custom-control-input" type="radio" name="visibilidade_sol" <?= $solicitacao->PU ?> />
+                                        <input class="custom-control-input" type="radio" name="visibilidade_sol" <?= $solicitacao->PU ?> value="PU"/>
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Público</span>
                                     </label>
@@ -133,7 +132,7 @@ require_once("cabecalho.php");
 
                         </table>
                         <div>
-                            <button type="submit" class="btn btn-default">Criar Solicitação</button>
+                            <button type="submit" class="btn btn-default">Nova Solicitação</button>
                         </div>
                     </form>
                 </div>

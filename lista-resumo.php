@@ -7,7 +7,7 @@ require_once("cabecalho.php");
                         <div class="col-lg-12">
                             <ol class="breadcrumb">
                                 <li>
-                                    <i class="fa fa-dashboard"></i>  <a href="minhavisao.php">Minha Visão</a>
+                                    <i class="fa fa-home"></i>  <a href="minhavisao.php">Minha Visão</a>
                                 </li>
                                 <li class="active">
                                     <i class="fa fa-bar-chart-o"></i> Resumo

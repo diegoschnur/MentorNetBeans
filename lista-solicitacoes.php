@@ -6,10 +6,10 @@ require_once("cabecalho.php");
     <div class="col-lg-12">
         <ol class="breadcrumb">
             <li>
-                <i class="fa fa-dashboard"></i>  <a href="minhavisao.php">Minha Visão</a>
+                <i class="fa fa-home"></i>  <a href="minhavisao.php">Minha Visão</a>
             </li>
             <li class="active">
-                <i class="fa fa-table"></i> Solicitações
+                <i class="fa fa-list-alt"></i> Solicitações
             </li>
         </ol>
     </div>
@@ -32,7 +32,7 @@ require_once("cabecalho.php");
             </div>
         </div>
 
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Lista de Solicitações</h3>
             </div>
@@ -51,10 +51,10 @@ require_once("cabecalho.php");
                     </thead>
                     <tbody>
                         <?php
-                        $solicitacaoDAO = new SolicitacaoDAO();
-                        $solicitacoes = $solicitacaoDAO->listaSolicitacoes();
-                        foreach ($solicitacoes as $sol) :
-                            ?>
+                            $solicitacaoDAO = new SolicitacaoDAO();
+                            $solicitacoes = $solicitacaoDAO->listaSolicitacoes();
+                            foreach ($solicitacoes as $sol) :
+                        ?>
                             <tr>
                                 <td><a href="lista-solicitacao.php"><?= $sol->id_sol ?></a></td>
                                 <td><?= $sol->idUsuario_sol ?></td>
@@ -64,8 +64,8 @@ require_once("cabecalho.php");
                                 <td>0%</td>
                                 <td><?= $sol->status_sol ?></td>
                             </tr>
-                            <?php
-                        endforeach;
+                        <?php
+                            endforeach;
                         ?>
                     </tbody>
                 </table>

@@ -7,7 +7,7 @@ require_once("cabecalho.php");
     <div class="col-lg-12">
         <ol class="breadcrumb">
             <li>
-                <i class="fa fa-dashboard"></i>  <a href="minhavisao.php">Minha Visão</a>
+                <i class="fa fa-home"></i>  <a href="minhavisao.php">Minha Visão</a>
             </li>
             <li class="active">
                 <i class="fa fa-edit"></i> Novo Projeto
@@ -19,10 +19,6 @@ require_once("cabecalho.php");
 
 <div class="row">
     <div class="col-lg-12">
-
-        <div class="alert alert-success" role="alert">
-            <a href="#" class="alert-link">Projeto cadastrado com sucesso!</a>
-        </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -45,7 +41,7 @@ require_once("cabecalho.php");
                         <div>
                             <button type="submit" class="btn btn-default">Criar Projeto</button>
                         </div>
-
+                        
                     </form>
                 </div>
 

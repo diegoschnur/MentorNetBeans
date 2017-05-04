@@ -1,6 +1,5 @@
 <?php
 require_once("cabecalho.php");
-
 ?>
 
 <!-- Page Heading -->
@@ -8,10 +7,10 @@ require_once("cabecalho.php");
     <div class="col-lg-12">
         <ol class="breadcrumb">
             <li>
-                <i class="fa fa-dashboard"></i>  <a href="minhavisao.php">Minha Visão</a>
+                <i class="fa fa-home"></i>  <a href="minhavisao.php">Minha Visão</a>
             </li>
             <li class="active">
-                <i class="fa fa-table"></i> Projetos
+                <i class="fa fa-list-alt"></i> Projetos
             </li>
         </ol>
     </div>
@@ -38,36 +37,38 @@ require_once("cabecalho.php");
             </div>
         </div>
 
-        <div class="panel panel-green">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Lista de projetos</h3>
             </div>
             <div class="panel-body">
-                <table class="table table-bordered table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $projetoDAO = new ProjetoDAO();
-                        $projetos = $projetoDAO->listaProjetos();
-                        foreach ($projetos as $pr) :
-                            ?>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
                             <tr>
-                                <td><?= $pr->id_prj ?></td>
-                                <td><?= $pr->nome_prj ?></td>
-                                <td><?= $pr->status_prj ?></td>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Status</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             <?php
-                        endforeach
-                        ?>
-                    </tbody>
+                            $projetoDAO = new ProjetoDAO();
+                            $projetos = $projetoDAO->listaProjetos();
+                            foreach ($projetos as $pr) :
+                                ?>
+                                <tr>
+                                    <td><?= $pr->id_prj ?></td>
+                                    <td><?= $pr->nome_prj ?></td>
+                                    <td><?= $pr->status_prj ?></td>
+                                </tr>
+                                <?php
+                            endforeach
+                            ?>
+                        </tbody>
 
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
