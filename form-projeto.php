@@ -1,5 +1,5 @@
 <?php
-require_once("cabecalho.php");
+include("cabecalho.php");
 ?>
 
 <!-- Page Heading -->
@@ -31,11 +31,11 @@ require_once("cabecalho.php");
                         <table class="table table-bordered table-condensed">
                             <tr>
                                 <th><label>Nome</label></th>
-                                <td><input class="form-control" id="nome_prj" name="nome_prj" type="text"></td>
+                                <td><input class="form-control" id="nome_prj" name="nome_prj" type="text" required="required"></td>
                             </tr>
                             <tr>
                                 <th><label>Descrição</label></th>
-                                <td><textarea class="form-control" id="desc_prj" name="descricao_prj" rows="8" cols="80"></textarea></td>
+                                <td><textarea class="form-control" id="descricao_prj" name="descricao_prj" required="required" rows="8" cols="80"></textarea></td>
                             </tr>
                         </table>
                         <div>

@@ -1,5 +1,9 @@
 <?php
-require_once("cabecalho.php");
+include("cabecalho.php");
+
+$id = $_GET['id'];
+
+session_start();
 ?>
 
 <!-- Page Heading -->
@@ -42,43 +46,29 @@ require_once("cabecalho.php");
 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Lista de projetos
-                    <a href="form-altera-projeto.php" value="<?= $pr->id_prj ?>">
-                        <i class="fa fa-pencil" aria-hidden="true" data-toggle="collapse" data-target="#collAvaliacao" 
+                <h3 class="panel-title">Informações do Projeto
+                    <a href="form-altera-projeto.php?id=<?= $pr->id_prj ?>">
+                        <i class="fa fa-pencil" aria-hidden="true" data-toggle="collapse" data-target="#collProjeto" 
                            id="paineis-status"></i>
                     </a>
                 </h3>
             </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Descrição</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $projetoDAO = new ProjetoDAO();
-                            $projeto = $projetoDAO->listaProjeto($projeto);
-                            foreach ($projeto as $pr) :
-                                ?>
-                                <tr>
-                                    <td><?= $pr->id_prj ?></a></td>
-                                    <td><?= $pr->nome_prj ?></td>
-                                    <td><?= $pr->descricao_prj ?></td>
-                                    <td><?= $pr->status_prj ?></td>
-                                </tr>
-                                <?php
-                            endforeach
-                            ?>
-                        </tbody>
 
-                    </table>
-                </div>
+            <div class="panel-body collapse in" id="collProjeto">
+                <?php
+                    $projetoDAO = new ProjetoDAO();
+                    $projeto = $projetoDAO->listaProjeto($id);
+                    foreach ($projeto as $pr) :
+                ?>
+                    <p><strong>ID: </strong><?= $pr->id_prj ?></p>
+                    <p><strong>Nome: </strong><?= $pr->nome_prj ?></p>
+                    <p><strong>Descrição: </strong><?= $pr->descricao_prj ?></p>
+                    <p><strong>Status: </strong><?= $pr->status_prj ?></p>
+
+
+                <?php
+                    endforeach
+                ?>
             </div>
         </div>
     </div>

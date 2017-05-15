@@ -1,7 +1,7 @@
 <?php
+
+session_start();
 include '../Persistence/ConnectionDB.php';
-include '../Model/ProjetoModel.php';
-include '../Dao/ProjetoDAO.php';
 
 if ((!empty($_POST['nome_prj'])) &&
         (!empty($_POST['descricao_prj']))) {
@@ -14,6 +14,7 @@ if ((!empty($_POST['nome_prj'])) &&
         $projeto->nome_prj = $_POST['nome_prj'];
         $projeto->descricao_prj = $_POST['descricao_prj'];
         $projeto->status_prj = 'I';
+        $projeto->id_usuario_prj = 1;
 
         $projetoDao = new ProjetoDAO();
         $projetoDao->insereProjeto($projeto);

@@ -1,4 +1,4 @@
-. <?php
+<?php
 
 class SolicitacaoDAO {
 
@@ -51,6 +51,24 @@ class SolicitacaoDAO {
             return $solicitacoes;
         } catch (PDOException $exc) {
             echo 'Ocorreram erros ao pesquisar as solicitações!' . $exc;
+        }
+    }
+    
+    public function listaSolicitacao($id_sol) {
+        try {
+            $status = $this->connection->prepare(""
+                    . "select * from tbl_solicitacoes where id_sol = ?");    
+            
+            $status->bindValue(1, $id_sol, PDO::PARAM_INT);
+            $status->execute();
+            
+            $solicitacao = $status->fetchAll(PDO::FETCH_CLASS);
+
+            $this->connection = null;
+
+            return $solicitacao;
+        } catch (PDOException $exc) {
+            echo 'Ocorreram erros ao pesquisar a solicitação!' . $exc;
         }
     }
 

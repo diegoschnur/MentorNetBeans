@@ -1,5 +1,7 @@
 <?php
-require_once("cabecalho.php");
+include("cabecalho.php");
+
+$id = $_GET['id'];
 
 ?>
 
@@ -28,7 +30,7 @@ require_once("cabecalho.php");
             <div class="panel-body">
                 <!-- Table -->
                 <div class="table-responsive">
-                    <form action="./Controller/ProjetoController.php" method="post" name="cadProjeto">
+                    <form action="./Dao/ProjetoDAO.php" method="post" name="altProjeto">
                         <input type="hidden" name="id_prj" value="<?=$projeto['id_prj']?>" >
                         <table class="table table-bordered table-condensed">
                             <tr>
@@ -44,7 +46,7 @@ require_once("cabecalho.php");
                             <tr>
                                 <th><label>Status</label></th>
                                 <td>
-                                    <select class="form-control" id="idProjeto_sol" name="idProjeto_sol" class="input-sm">
+                                    <select class="form-control" id="status_prj" name="status_prj" class="input-sm">
                                         <option selected>Selecione o Status</option>
                                         <option value="A" >Ativar</option>
                                         <option value="C" >Cancelar</option>

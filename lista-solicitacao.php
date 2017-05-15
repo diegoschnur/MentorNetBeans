@@ -1,5 +1,14 @@
 <?php
 require_once("cabecalho.php");
+$id_sol = $_GET['id'];
+if ($_SESSION['solicitacao'] != $id_sol) {
+    $_SESSION['solicitacao'] = $id_sol;
+}
+//$id_sol = $_SESSION['id_solicitacao'];
+//print_r($_SESSION);exit;
+$solicitacaoDAO = new SolicitacaoDAO();
+$sol = $solicitacaoDAO->listaSolicitacao($id_sol);
+
 ?>
 
 <!-- Page Heading -->
@@ -28,7 +37,7 @@ require_once("cabecalho.php");
             <div class="col-lg-8">
                 <div class="panel-group">
 
-                    <div class="panel panel-default">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title" data-parent="#panels-all">Informações Gerais
                                 <a href="#">
@@ -40,13 +49,19 @@ require_once("cabecalho.php");
 
                         <div class="panel-body collapse in" id="collGerais">
 
-                            <p>Dados</p>
+                            <p><strong>ID: </strong><?= $sol[0]->id_sol ?></p>
+                            <p><strong>Nome: </strong><?= $sol[0]->nome_sol ?></p>
+                            <p><strong>Solicitante: </strong><?= $sol[0]->idUsuario_sol ?></p>
+                            <p><strong>Data Abertura: </strong><?= $sol[0]->dataAbertura_sol ?></p>
+                            <p><strong>Data Necessidade: </strong><?= $sol[0]->dataNecessidade_sol ?></p>
+                            <p><strong>Tempo de Teste: </strong><?= $sol[0]->tempoTeste_sol ?>  <?= $sol[0]->unidadeMedida_sol ?></p>
+                            <p><strong>Status: </strong><?= $sol[0]->status_sol ?></p>
 
                         </div>
 
                     </div>
 
-                    <div class="panel panel-default">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title" data-parent="#panels-all">Componentes a testar
                                 <a href="#">
@@ -58,12 +73,12 @@ require_once("cabecalho.php");
 
                         <div class="panel-body collapse in" id="collComponentes">
 
-                            <p>Dados</p>
+                            <p><?= $sol[0]->componentesTestar_sol ?></p>
 
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title" data-parent="#panels-all">Sugestões de metodologia
                                 <a href="#">
@@ -74,13 +89,30 @@ require_once("cabecalho.php");
                         </div>
                         <div class="panel-body collapse in" id="collMetodologia">
 
-                            <p>Dados</p>
+                            <p><?= $sol[0]->metodologia_sol ?></p>
 
                         </div>
 
                     </div>
 
                     <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" data-parent="#panels-all">Observações
+                                <a href="#">
+                                    <i class="ace-icon fa bigger-125 fa-chevron-down" data-toggle="collapse" data-target="#collObs" 
+                                       id="paineis-status"></i>
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="panel-body collapse in" id="collObs">
+
+                            <p><?= $sol[0]->observacoes_sol ?></p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title" data-parent="#panels-all">Lista de Fichas Técnicas Associadas
                                 <a href="#">
@@ -103,14 +135,23 @@ require_once("cabecalho.php");
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><a href="lista-fichaTecnica.php">FT-03.01/2017</a></td>
-                                            <td>Nome da Ficha Técnica 1</td>
-                                            <td>01/01/2017</td>
-                                            <td>5</td>
-                                            <td>Aceita</td>
-                                            <td>Importante</td>
-                                        </tr>
+
+                                        <?php
+                                        $fichasTecnicasDAO = new FichaTecnicaDAO();
+                                        $fichasTecnicas = $fichasTecnicasDAO->listaFichasTecnicas($id_sol);
+                                        foreach ($fichasTecnicas as $ft) :
+                                            ?>
+                                            <tr>
+                                                <td><a href="lista-fichaTecnica.php?id=<?= $ft->id_ft ?>"><?= $ft->id_ft ?></a></td>
+                                                <td><?= $ft->nome_ft ?></td>
+                                                <td><?= $ft->dataInicial_ft ?></td>
+                                                <td><?= $ft->tempoTeste_ft ?></td>
+                                                <td><?= $ft->status_ft ?></td>
+                                                <td><?= $ft->destaque_ft ?></td>
+                                            </tr>
+                                            <?php
+                                        endforeach;
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -122,22 +163,31 @@ require_once("cabecalho.php");
             </div>
 
             <div class="col-lg-4">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Dados do Projeto</h3>
+                        <h3 class="panel-title" data-parent="#panels-all">Informações Gerais
+                            <a href="#">
+                                <i class="ace-icon fa bigger-125 fa-chevron-down" data-toggle="collapse" data-target="#collProjeto" 
+                                   id="paineis-status"></i>
+                            </a>
+                        </h3>
                     </div>
 
-                    <div class="list-group">
-                        <div class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between">
-                                <p><small class="mb-1"><strong>ID: </strong>01</small></p>
-                                <p><small class="mb-1"><strong>Nome: </strong>Projeto 01</small></p>
-                            </div>
-                        </div>
+                    <div class="panel-body collapse in" id="collProjeto">
+                        <?php
+                        $_SESSION['id_projeto'] = $sol[0]->idProjeto_sol;
+                        
+                        $projetoDAO = new ProjetoDAO();
+                        $prj = $projetoDAO->listaProjeto($sol[0]->idProjeto_sol);
+                        
+                        ?>
+                        <p><strong>ID: </strong><?= $sol[0]->idProjeto_sol ?></p>
+                        <p><strong>Nome: </strong><?= $prj[0]->nome_prj ?></p>
                     </div>
+
                 </div>
 
-                <a href="form-fichaTecnica.php" class="btn btn-primary btn-block btn-lg" role="button">Nova Ficha Técnica</a>
+                <a href="form-fichaTecnica.php" class="btn btn-default btn-block btn-lg" role="button">Nova Ficha Técnica</a>
             </div>
 
         </div>
@@ -146,5 +196,3 @@ require_once("cabecalho.php");
 <!-- /.row -->
 
 <?php include("rodape.php"); ?>
-
-

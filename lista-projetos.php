@@ -1,5 +1,8 @@
 <?php
-require_once("cabecalho.php");
+include("cabecalho.php");
+
+session_start();
+
 ?>
 
 <!-- Page Heading -->
@@ -58,7 +61,7 @@ require_once("cabecalho.php");
                             foreach ($projetos as $pr) :
                                 ?>
                                 <tr>
-                                    <td><?= $pr->id_prj ?></td>
+                                    <td><a href="lista-projeto.php?id=<?= $pr->id_prj ?>"><?= $pr->id_prj ?></a></td>
                                     <td><?= $pr->nome_prj ?></td>
                                     <td><?= $pr->status_prj ?></td>
                                 </tr>

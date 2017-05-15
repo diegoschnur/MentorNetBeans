@@ -6,7 +6,7 @@ require_once("cabecalho.php");
     <div class="col-lg-12">
         <ol class="breadcrumb">
             <li>
-                <i class="fa fa-home"></i>  <a href="minhavisao.php">Minha Visão</a>
+                <i class="fa fa-home"></i>  <a href="../minhavisao.php">Minha Visão</a>
             </li>
             <li class="active">
                 <i class="fa fa-list-alt"></i> Solicitações
@@ -37,38 +37,40 @@ require_once("cabecalho.php");
                 <h3 class="panel-title">Lista de Solicitações</h3>
             </div>
             <div class="panel-body">
-                <table class="table table-bordered table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Solicitante</th>
-                            <th>Nome Solicitação</th>
-                            <th>Abertura</th>
-                            <th>Necessidade</th>
-                            <th>Andamento</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Solicitante</th>
+                                <th>Nome Solicitação</th>
+                                <th>Abertura</th>
+                                <th>Necessidade</th>
+                                <th>Andamento</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
                             $solicitacaoDAO = new SolicitacaoDAO();
                             $solicitacoes = $solicitacaoDAO->listaSolicitacoes();
                             foreach ($solicitacoes as $sol) :
-                        ?>
-                            <tr>
-                                <td><a href="lista-solicitacao.php"><?= $sol->id_sol ?></a></td>
-                                <td><?= $sol->idUsuario_sol ?></td>
-                                <td><?= $sol->nome_sol ?></td>
-                                <td><?= $sol->dataAbertura_sol ?></td>
-                                <td><?= $sol->dataNecessidade_sol ?></td>
-                                <td>0%</td>
-                                <td><?= $sol->status_sol ?></td>
-                            </tr>
-                        <?php
+                                ?>
+                                <tr>
+                                    <td><a href="lista-solicitacao.php?id=<?= $sol->id_sol ?>"><?= $sol->id_sol ?></a></td>
+                                    <td><?= $sol->idUsuario_sol ?></td>
+                                    <td><?= $sol->nome_sol ?></td>
+                                    <td><?= $sol->dataAbertura_sol ?></td>
+                                    <td><?= $sol->dataNecessidade_sol ?></td>
+                                    <td>0%</td>
+                                    <td><?= $sol->status_sol ?></td>
+                                </tr>
+                                <?php
                             endforeach;
-                        ?>
-                    </tbody>
-                </table>
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

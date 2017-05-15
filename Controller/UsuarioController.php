@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 include '../Persistence/ConnectionDB.php';
 include '../Model/Usuario.php';
 include '../Dao/UsuarioDAO.php';

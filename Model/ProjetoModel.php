@@ -6,6 +6,7 @@ class ProjetoModel {
     private $nome_prj;
     private $descricao_prj;
     private $status_prj;
+    private $id_usuario_prj;
 
     public function __construct() {
         

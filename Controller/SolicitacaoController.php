@@ -1,18 +1,16 @@
 <?php
 
+session_start();
 include '../Persistence/ConnectionDB.php';
 include '../Model/SolicitacaoModel.php';
 include '../Dao/SolicitacaoDAO.php';
-
 
 if ((!empty($_POST['nome_sol'])) &&
         (!empty($_POST['dataAbertura_sol'])) &&
         (!empty($_POST['dataNecessidade_sol'])) &&
         (!empty($_POST['tempoTeste_sol'])) &&
-        (!empty($_POST['unidadeMedida_sol'])) &&
         (!empty($_POST['componentesTestar_sol'])) &&
         (!empty($_POST['metodologia_sol'])) &&
-        (!empty($_POST['visibilidade_sol'])) &&
         (!empty($_POST['idProjeto_sol']))) {
 
 

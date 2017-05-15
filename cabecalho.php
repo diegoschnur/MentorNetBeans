@@ -1,14 +1,14 @@
 <?php
+session_start();
 
 function carregaClasse($nomeDaClasse) {
-    require_once("Dao/".$nomeDaClasse.".php");
+    require_once("Dao/" . $nomeDaClasse . ".php");
     require_once ("./Persistence/ConnectionDB.php");
 }
 
 spl_autoload_register("carregaClasse");
 
 error_reporting(E_ALL ^ E_NOTICE);
-
 ?>
 <html lang="en">
     <head>
@@ -24,6 +24,9 @@ error_reporting(E_ALL ^ E_NOTICE);
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
+        <!--Pulling Awesome Font -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
         <!-- Custom CSS -->
         <link href="css/sb-admin.css" rel="stylesheet">
         <link href="css/estilos.css" rel="stylesheet">
@@ -33,14 +36,14 @@ error_reporting(E_ALL ^ E_NOTICE);
 
         <!-- Custom Fonts -->
         <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        
+
 
     </head>
     <body>
@@ -110,7 +113,7 @@ error_reporting(E_ALL ^ E_NOTICE);
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                <a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                             </li>
                         </ul>
                     </li>
@@ -135,12 +138,6 @@ error_reporting(E_ALL ^ E_NOTICE);
                         </li>
                         <li>
                             <a href="lista-resumo.php" name="lista-resumo"><i class="fa fa-line-chart"></i> Resumo</a>
-                        </li>
-                        <li>
-                            <a href="bootstrap-elements.php" name="bootstrap-elements"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-                        </li>
-                        <li>
-                            <a href="blank-page.php" name="blank-page"><i class="fa fa-fw fa-file"></i> Blank Page</a>
                         </li>
                     </ul>
                 </div>

@@ -37,7 +37,7 @@ require_once("cabecalho.php");
                                     $projetoDAO = new ProjetoDAO();
                                     $projetos = $projetoDAO->listaProjetos();
                                     ?>
-                                    <select class="form-control" id="idSolicitacao" name="idProjeto_sol" class="input-sm">
+                                    <select class="form-control" id="idProjeto_sol" name="idProjeto_sol" class="input-sm">
                                         <option selected>Selecione um Projeto</option>
                                         <?php
                                         foreach ($projetos as $prj) :
@@ -56,7 +56,7 @@ require_once("cabecalho.php");
                             </tr>
                             <tr>
                                 <th><label>Nome</label></th>
-                                <td><input class="form-control" type="text" id="nome_sol" name="nome_sol"></td>
+                                <td><input class="form-control" type="text" id="nome_sol" name="nome_sol" required="required"></td>
                             </tr>
                             <tr>
                                 <th><label>Data de Abertura</label></th>
@@ -88,15 +88,15 @@ require_once("cabecalho.php");
                             </tr>
                             <tr>
                                 <th><label>Componentes a Testar</label></th>
-                                <td><textarea class="form-control" id="componentesTestar_prj" name="componentesTestar_sol" rows="8" cols="80"></textarea></td>
+                                <td><textarea class="form-control" id="componentesTestar_sol" name="componentesTestar_sol" rows="8" cols="80"></textarea></td>
                             </tr>
                             <tr>
                                 <th><label>Metodologia Sugerida</label></th>
-                                <td><textarea class="form-control" id="metodologia_prj" name="metodologia_sol" rows="8" cols="80"></textarea></td>
+                                <td><textarea class="form-control" id="metodologia_sol" name="metodologia_sol" rows="8" cols="80"></textarea></td>
                             </tr>
                             <tr>
                                 <th><label>Observações</label></th>
-                                <td><textarea class="form-control" id="obs_prj" name="observacoes_sol" rows="5" cols="80"></textarea></td>
+                                <td><textarea class="form-control" id="observacoes_sol" name="observacoes_sol" rows="5" cols="80"></textarea></td>
                             </tr>
                             <tr>
                                 <th><label>Enviar arquivos</label></th>
