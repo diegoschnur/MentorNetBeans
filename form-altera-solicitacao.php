@@ -1,10 +1,20 @@
 <?php
 require_once("cabecalho.php");
 
+$id_sol = $_SESSION['id_solicitacao'];
+$solicitacaoDAO = new SolicitacaoDAO();
+$sol = $solicitacaoDAO->listaSolicitacao($id_sol);
+
+$projetosDAO = new ProjetoDAO();
+$projetos = $projetosDAO->listaProjetos();
+
 $projetoDAO = new ProjetoDAO();
-$projetos = $projetoDAO->listaProjetos();
+$projeto = $projetoDAO->listaProjeto($sol[0]->idProjeto_sol);
 
-
+//echo '<pre>';
+//print_r($projeto);
+//print_r($sol);
+//die();
 ?>
 
 <!-- Page Heading -->
@@ -14,12 +24,19 @@ $projetos = $projetoDAO->listaProjetos();
             <li>
                 <i class="fa fa-home"></i>  <a href="minhavisao.php">Minha Visão</a>
             </li>
-            <li class="active">
-                <i class="fa fa-edit"></i> Nova Solicitação
+            <li class="hidden-xs">
+                <i class="fa fa-list-alt"></i>  <a href="lista-solicitacoes.php">Solicitações</a>
+            </li>
+            <li>
+                <i class="fa fa-table"></i>  <a href="lista-solicitacao.php">Solicitação</a>
+            </li>
+            <li class="active hidden-xs">
+                <i class="fa fa-edit"></i> Altera Solicitação
             </li>
         </ol>
     </div>
 </div>
+
 <!-- /.row -->
 
 <div class="row">
@@ -27,47 +44,39 @@ $projetos = $projetoDAO->listaProjetos();
 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Digite os dados da Solicitação</h3>
+                <h3 class="panel-title">Digite os novos dados da Solicitação</h3>
             </div>
             <div class="panel-body">
                 <!-- Table -->
                 <div class="table-responsive">
-
-                    <form action="./Controller/SolicitacaoController.php" method="post" name="cadSolicitacao">
-                        <input type="hidden" name="acao" value="cadastra" >
+                    <form action="./Controller/SolicitacaoController.php" method="post" name="altSolicitacao">
+                        <input type="hidden" name="acao" value="altera" >
+                        <input type="hidden" name="id_sol" value="<?= $sol[0]->id_sol ?>" >
                         <table class="table table-bordered table-condensed">
                             <tr>
                                 <th><label>Projeto</label></th>
                                 <td>
-
+                                    
                                     <select class="form-control" id="idProjeto_sol" name="idProjeto_sol" class="input-sm">
-                                        <option selected>Selecione um Projeto</option>
+                                        <option value="<?= $projeto[0]->id_prj ?>"><?= $projeto[0]->nome_prj ?></option>
                                         <?php
-                                        foreach ($projetos as $prj) :
-
-                                            $esseEhOProjeto = $solicitacao->prj->id_prj == $prj->id_prj;
-                                            $selecao = $esseEhOProjeto ? "selected='selected'" : "";
+                                        foreach ($projetos as $prj) {
                                             ?>
-
-                                            <option value="<?= $prj->id_prj ?>" <?= $selecao ?>><?= $prj->nome_prj ?></option>
-
+                                        <option value="<?= $prj->id_prj ?>"><?= $prj->nome_prj ?></option>
                                             <?php
-                                        endforeach
+                                        }
                                         ?>
                                     </select>
+                                    
                                 </td>
                             </tr>
                             <tr>
                                 <th><label>Nome</label></th>
-                                <td><input class="form-control" type="text" id="nome_sol" name="nome_sol" required="required"></td>
-                            </tr>
-                            <tr>
-                                <th><label>Data de Abertura</label></th>
-                                <td><input class="form-control" type="date" id="dataAbertura_sol" name="dataAbertura_sol" required="required"/></td>
+                                <td><input class="form-control" type="text" id="nome_sol" name="nome_sol" required="required" value="<?= $sol[0]->nome_sol ?>"></td>
                             </tr>
                             <tr>
                                 <th><label>Data da Necessidade</label></th>
-                                <td><input class="form-control" type="date" id="dataNecessidade_sol" name="dataNecessidade_sol"/></td>
+                                <td><input class="form-control" type="date" id="dataNecessidade_sol" name="dataNecessidade_sol" value="<?= $sol[0]->dataNecessidade_sol ?>"/></td>
                             </tr>
                             <tr>
                                 <th><label>Unidade de Medida</label></th>
@@ -87,40 +96,25 @@ $projetos = $projetoDAO->listaProjetos();
                             </tr>
                             <tr>
                                 <th><label>Tempo de Teste</label></th>
-                                <td><input class="form-control" type="number" id="tempoTeste_sol" name="tempoTeste_sol" min="0" /></td>
+                                <td><input class="form-control" type="number" id="tempoTeste_sol" name="tempoTeste_sol" min="0" max="100000" value="<?= $sol[0]->tempoTeste_sol ?>"/></td>
                             </tr>
                             <tr>
                                 <th><label>Componentes a Testar</label></th>
-                                <td><textarea class="form-control" id="componentesTestar_sol" name="componentesTestar_sol" rows="8" cols="80"></textarea></td>
+                                <td><textarea class="form-control" id="componentesTestar_sol" name="componentesTestar_sol" rows="8" cols="80"><?= $sol[0]->componentesTestar_sol ?></textarea></td>
                             </tr>
                             <tr>
                                 <th><label>Metodologia Sugerida</label></th>
-                                <td><textarea class="form-control" id="metodologia_sol" name="metodologia_sol" rows="8" cols="80"></textarea></td>
+                                <td><textarea class="form-control" id="metodologia_sol" name="metodologia_sol" rows="8" cols="80"><?= $sol[0]->metodologia_sol ?></textarea></td>
                             </tr>
                             <tr>
                                 <th><label>Observações</label></th>
-                                <td><textarea class="form-control" id="observacoes_sol" name="observacoes_sol" rows="5" cols="80"></textarea></td>
+                                <td><textarea class="form-control" id="observacoes_sol" name="observacoes_sol" rows="5" cols="80"><?= $sol[0]->observacoes_sol ?></textarea></td>
                             </tr>
-<!--                            <tr>
-                                <th><label>Enviar arquivos</label></th>
-                                <td>
-                                    <input type="hidden" name="max_file_size" value="104857600" />
-                                    <div class="dropzone center">
-                                        <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i><br>
-                                        <span class="bigger-150 grey">Arraste os arquivos até aqui para carregá-los (ou clique)</span>
-                                        <div id="dropzone-previews-box" class="dropzone-previews dz-max-files-reached"></div>
-                                    </div>
-                                    <div class="fallback">
-                                        <div class="dz-message" data-dz-message></div>
-                                        <input tabindex="14" id="ufile[]" name="ufile[]" type="file" size="60" />
-                                    </div>
-                                </td>
-                            </tr>-->
                             <tr>
                                 <th><label>Visibilidade</label></th>
                                 <td>
                                     <label>
-                                        <input class="custom-control-input" type="radio" name="visibilidade_sol" checked="true" <?= $solicitacao->Privado ?> value="Privado"/>
+                                        <input class="custom-control-input" type="radio" name="visibilidade_sol"  checked="true" <?= $solicitacao->Privado ?> value="Privado"/>
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Privado</span>
                                     </label>
@@ -133,12 +127,34 @@ $projetos = $projetoDAO->listaProjetos();
                                 </td>
                             </tr>
 
+                            <tr>
+                                <th><label>Status</label></th>
+                                <td>
+                                    <select class="form-control" id="status_sol" name="status_sol" class="input-sm">
+                                        <option selected><?= $sol[0]->status_sol ?></option>
+                                        <option value="Ativa" >Ativar</option>
+                                        <option value="Cancelada" >Cancelar</option>
+                                        <option value="Inativa" >Inativar</option>
+                                        <option value="Nova" >Nova</option>
+                                    </select>
+                                </td>
+                            </tr>
+
                         </table>
                         <div>
-                            <button type="submit" class="btn btn-primary col-xs-8 col-sm-4 col-md-4 col-lg-4 ">Cadastrar Solicitação</button>
-                            <button type="reset" class="btn btn-danger col-xs-4 col-sm-4 col-sm-offset-4 col-md-4  col-lg-4">Limpar</button>
+                            <button type="submit" class="btn btn-primary col-xs-8 col-sm-4 col-md-4 col-lg-4 ">Atualizar</button>
                         </div>
                     </form>
+                    
+                    <form action="./Controller/SolicitacaoController.php" method="post" name="delSolicitacao">
+                        <input type="hidden" name="acao" value="deleta" >
+                        <input type="hidden" name="id_sol" value="<?= $sol[0]->id_sol ?>" >
+                        <input type="hidden" name="nome_sol" value="<?= $sol[0]->nome_sol ?>" >
+                        <div>
+                            <button type="submit" class="btn btn-danger col-xs-4 col-sm-4 col-sm-offset-4 col-md-4 col-lg-4">Deletar</button>
+                        </div>
+                    </form>
+                    
                 </div>
 
             </div>
@@ -149,4 +165,3 @@ $projetos = $projetoDAO->listaProjetos();
 <!-- /.row -->
 
 <?php include("rodape.php"); ?>
-

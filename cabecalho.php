@@ -1,16 +1,30 @@
 <?php
 session_start();
+require_once("./Include/validaUsuario.php");
 
 function carregaClasse($nomeDaClasse) {
     require_once("Dao/" . $nomeDaClasse . ".php");
+    require_once("./Include/funcoes.php");
     require_once ("./Persistence/ConnectionDB.php");
 }
 
 spl_autoload_register("carregaClasse");
 
 error_reporting(E_ALL ^ E_NOTICE);
+
+if (isset($_SESSION["id_us"])) {
+    $id_us_logado = $_SESSION['id_us'];
+
+    $UsuarioDAO = new UsuarioDAO();
+    $pegaUsuarioLogado = $UsuarioDAO->listaUsuario($id_us_logado);
+
+    $pegaPerfil = $pegaUsuarioLogado[0]->perfil_us;
+    $pegaStatus_us = $pegaUsuarioLogado[0]->status_us;
+    
+    $_SESSION['usuario-ativo'] = $pegaStatus_us;
+}
 ?>
-<html lang="en">
+<html lang="pt-BR">
     <head>
 
         <meta charset="utf-8">
@@ -19,7 +33,10 @@ error_reporting(E_ALL ^ E_NOTICE);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>SB Admin - Mentor 4.0</title>
+        <title>Stara | Mentor 4.0</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
 
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -36,6 +53,15 @@ error_reporting(E_ALL ^ E_NOTICE);
 
         <!-- Custom Fonts -->
         <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <!-- Datatabless.net -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/jquery.datatables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" />
+
+
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,55 +91,27 @@ error_reporting(E_ALL ^ E_NOTICE);
                 <!-- Top Menu Items -->
                 <ul class="nav navbar-right top-nav">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                        <ul class="dropdown-menu message-dropdown">
-                            <li class="message-preview">
-                                <a href="#">
-                                    <div class="media">
-                                        <span class="pull-left">
-                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                        </span>
-                                        <div class="media-body">
-                                            <h5 class="media-heading"><strong>John Smith</strong>
-                                            </h5>
-                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="message-footer">
-                                <a href="#">Read All New Messages</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                        <ul class="dropdown-menu alert-dropdown">
-                            <li>
-                                <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">View All</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Diego Schnur <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?= $_SESSION['nome_us'] ?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                                <a onClick="defineSessao('id_usuario', '<?= $_SESSION['id_us'] ?>', 'lista-usuario.php')"><i class="fa fa-fw fa-user"></i> Meu Perfil</a>
                             </li>
-                            <li>
-                                <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                            </li>
+                            <?php
+                            if (($pegaPerfil == 2) || ($pegaPerfil == 4) || ($pegaPerfil == 1)) {
+                                ?>
+                                <li>
+                                    <a href="lista-usuarios.php" name="lista-usuarios"><i class="fa fa-fw fa-gear"></i> Usuários</a>
+                                </li>
+                                <li>
+                                    <a href="lista-perfis.php" name="lista-perfis"><i class="fa fa-fw fa-gear"></i> Perfis</a>
+                                </li>
+                                <?php
+                            }
+                            ?>
+
                             <li class="divider"></li>
                             <li>
-                                <a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                <a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Sair</a>
                             </li>
                         </ul>
                     </li>
@@ -127,18 +125,29 @@ error_reporting(E_ALL ^ E_NOTICE);
                         <li>
                             <a href="lista-solicitacoes.php" name="lista-solicitacoes"><i class="fa fa-list-alt"></i> Lista de Solicitações</a>
                         </li>
-                        <li>
-                            <a href="form-solicitacao.php" name="form-solicitacao"><i class="fa fa-pencil-square-o"></i> Nova Solicitação</a>
-                        </li>
+
+                        <?php
+                        if (($pegaPerfil == 2) || ($pegaPerfil == 3) || ($pegaPerfil == 1)) {
+                            ?>
+                            <li>
+                                <a href="form-solicitacao.php" name="form-solicitacao"><i class="fa fa-pencil-square-o"></i> Nova Solicitação</a>
+                            </li>
+                            <?php
+                        }
+                        ?>
                         <li>
                             <a href="lista-projetos.php" name="lista-projetos"><i class="fa fa-list-alt"></i> Lista de Projetos</a>
                         </li>
-                        <li>
-                            <a href="form-projeto.php" name="form-projeto"><i class="fa fa-pencil-square-o"></i> Novo Projeto</a>
-                        </li>
-                        <li>
-                            <a href="lista-resumo.php" name="lista-resumo"><i class="fa fa-line-chart"></i> Resumo</a>
-                        </li>
+                        <?php
+                        if ($pegaPerfil == 2 || ($pegaPerfil == 1)) {
+                            ?>
+                            <li>
+                                <a href="form-projeto.php" name="form-projeto"><i class="fa fa-pencil-square-o"></i> Novo Projeto</a>
+                            </li>
+                            <?php
+                        }
+                        ?>
+
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

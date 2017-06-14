@@ -1,11 +1,14 @@
 <?php
 require_once("cabecalho.php");
 
-$solicitacaoDAO = new SolicitacaoDAO();
-$solicitacoes = $solicitacaoDAO->listaSolicitacoes();
+session_start();
 
-$conta_sol = sizeof($solicitacoes, 0);
+$usuarioDAO = new UsuarioDAO();
+$usuarios = $usuarioDAO->listaUsuarios();
+
+$conta_us = sizeof($usuarios, 0);
 ?>
+
 <!-- Page Heading -->
 <div class="row">
     <div class="col-lg-12">
@@ -14,12 +17,11 @@ $conta_sol = sizeof($solicitacoes, 0);
                 <i class="fa fa-home"></i>  <a href="minhavisao.php">Minha Visão</a>
             </li>
             <li class="active">
-                <i class="fa fa-list-alt"></i> Solicitações
+                <i class="fa fa-list-alt"></i> Usuários
             </li>
         </ol>
     </div>
 </div>
-<!-- /.row -->
 
 <?php
 if (isset($_SESSION["success"])) {
@@ -45,60 +47,54 @@ if (isset($_SESSION["error"])) {
 }
 ?>
 
+<!-- /.row -->
+
 <div class="row">
     <div class="col-lg-12">
 
-<!--        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Filtros
-                    <i class="ace-icon fa bigger-125 fa-chevron-down" data-toggle="collapse" data-target="#collFiltros" 
-                       id="paineis-status"></i>
-                </h3>
-            </div>
-
-            <div class="panel panel-default collapse in" id="collFiltros">
-
-            </div>
-        </div>-->
-
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Lista de Solicitações 
-                    <span class="badge"><?php echo $conta_sol ?></span>
+                <h3 class="panel-title">Lista de usuários 
+                    <span class="badge"><?php echo $conta_us ?></span>
+                    <?php
+                    if ($pegaPerfil == 2 || ($pegaPerfil == 4) || ($pegaPerfil == 1)) {
+                        ?>
+                        <a onclick="defineSessao('id_usuario', '', 'form-usuario.php')">
+                            <i class="ace-icon fa bigger-125 fa-plus-circle" id="paineis-status"></i>
+                        </a>
+                        <?php
+                    }
+                    ?>
+
                 </h3>
             </div>
-
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
-<!--                                <th>Solicitante</th>-->
-                                <th>Nome Solicitação</th>
-                                <th>Abertura</th>
-                                <th>Necessidade</th>
-                                <th>Andamento</th>
+                                <th>Nome</th>
+                                <th>E-mail</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
+
                             <?php
-                            foreach ($solicitacoes as $sol) :
+                            foreach ($usuarios as $us) :
                                 ?>
-                                <tr onClick="defineSessao('id_solicitacao', '<?= $sol->id_sol ?>', 'lista-solicitacao.php')">
-                                    <td><?= $sol->id_sol ?></td>
-<!--                                    <td><?= $sol->idUsuario_sol ?></td>-->
-                                    <td><?= $sol->nome_sol ?></td>
-                                    <td><?= formataData($sol->dataAbertura_sol) ?></td>
-                                    <td><?= formataData($sol->dataNecessidade_sol) ?></td>
-                                    <td><?= formataUmaCasaDecimal(calculaPorcentagem($sol->tempoTeste_sol, somaTempo($sol->id_sol))) ?></td>
-                                    <td><?= $sol->status_sol ?></td>
+                                <tr onClick="defineSessao('id_usuario', '<?= $us->id_us ?>', 'lista-usuario.php')">
+                                    <td><?= $us->id_us ?></td>
+                                    <td><?= $us->nome_us ?></td>
+                                    <td><?= $us->email_us ?></td>
+                                    <td><?= $us->status_us ?></td>
                                 </tr>
-                            <?php
-                        endforeach;
-                        ?>
+                                <?php
+                            endforeach
+                            ?>
                         </tbody>
+
                     </table>
                 </div>
             </div>

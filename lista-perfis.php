@@ -3,16 +3,18 @@ include("cabecalho.php");
 
 session_start();
 
-$projetoDAO = new ProjetoDAO();
-$projetos = $projetoDAO->listaProjetos();
+$perfisDAO = new PerfisDAO();
+$perfis = $perfisDAO->listaPerfis();
 
-$conta_prj = sizeof($projetos, 0);
+$perfistamanho = sizeof($perfis, 0);
 
 ////definir o numero de itens por pagina
-$itens_por_pagina = 5;
+$itens_por_pagina = 10;
 
-$num_paginas = ceil($conta_prj / $itens_por_pagina);
+$num_paginas = ceil($perfistamanho / $itens_por_pagina);
 
+//print_r($num_paginas);
+//die();
 ////pegar a pagina atual
 $pagina = intval($_GET['pagina']);
 ?>
@@ -25,7 +27,7 @@ $pagina = intval($_GET['pagina']);
                 <i class="fa fa-home"></i>  <a href="minhavisao.php">Minha Visão</a>
             </li>
             <li class="active">
-                <i class="fa fa-list-alt"></i> Projetos
+                <i class="fa fa-list-alt"></i> Perfis
             </li>
         </ol>
     </div>
@@ -62,27 +64,37 @@ if (isset($_SESSION["error"])) {
 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Lista de projetos <span class="badge"><?php echo $conta_prj ?></span></h3>
+                <h3 class="panel-title">Lista de perfis
+                    <span class="badge"><?= $perfistamanho ?></span>
+                    <?php
+                    if ($pegaPerfil == 1) {
+                        ?>
+                        <a onclick="defineSessao('id_pf', '', 'form-perfil.php')">
+                            <i class="ace-icon fa bigger-125 fa-plus-circle" id="paineis-status"></i>
+                        </a>
+                        <?php
+                    }
+                    ?>
+
+                </h3>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table id="employee_data" class="table table-bordered table-hover table-striped">
+                    <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Nome</th>
-                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             <?php
-                            foreach ($projetos as $prj) :
+                            foreach ($perfis as $pf) :
                                 ?>
-                                <tr onClick="defineSessao('id_projeto', '<?= $prj->id_prj ?>', 'lista-projeto.php')">
-                                    <td><?= $prj->id_prj ?></td>
-                                    <td><?= $prj->nome_prj ?></td>
-                                    <td><?= $prj->status_prj ?></td>
+                                <tr onClick="defineSessao('id_perfil_visualizado', '<?= $pf->id_pf ?>', 'lista-perfil.php')">
+                                    <td><?= $pf->id_pf ?></td>
+                                    <td><?= $pf->nome_pf ?></td>
                                 </tr>
                                 <?php
                             endforeach
@@ -97,7 +109,7 @@ if (isset($_SESSION["error"])) {
         <nav aria-label="...">
             <ul class="pager">
                 <li class="previous">
-                    <a href="lista-projetos.php?pagina=0">
+                    <a href="lista-perfis.php?pagina=0">
                         <span aria-hidden="true">&larr;</span> Anterior
                     </a>
                 </li>
@@ -109,12 +121,12 @@ if (isset($_SESSION["error"])) {
                         $estilo = "class=\"active\"";
                     ?>
                     <li <?php echo $estilo; ?> class="hidden-xs">
-                        <a href="lista-projetos.php?pagina=<?php echo $i; ?>"><?php echo $i + 1; ?></a>
+                        <a href="lista-perfis.php?pagina=<?php echo $i; ?>"><?php echo $i + 1; ?></a>
                     </li>
                 <?php } ?>
 
                 <li class="next">
-                    <a href="lista-projetos.php?pagina=<?php echo $num_paginas - 1; ?>">Próxima 
+                    <a href="lista-perfis.php?pagina=<?php echo $num_paginas - 1; ?>">Próxima 
                         <span aria-hidden="true">&rarr;</span>
                     </a>
                 </li>
@@ -125,11 +137,4 @@ if (isset($_SESSION["error"])) {
 </div>
 <!-- /.row -->
 
-
 <?php include("rodape.php"); ?>
-
-<script>
-    $(document).ready(function () {
-        $('#employee_data').DataTable();
-    });
-</script>

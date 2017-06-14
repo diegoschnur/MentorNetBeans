@@ -1,12 +1,15 @@
 <?php
 require_once("cabecalho.php");
 
-$id_sol = $_SESSION['id_solicitacao'];
+$id_ft = $_SESSION['id_fichaTecnica'];
+$fichaTecnicaDAO = new FichaTecnicaDAO();
+$ft = $fichaTecnicaDAO->listaFichaTecnica($id_ft);
+
 $solicitacaoDAO = new SolicitacaoDAO();
-$sol = $solicitacaoDAO->listaSolicitacao($id_sol);
+$sol = $solicitacaoDAO->listaSolicitacao($ft[0]->id_solicitacao_ft);
 
 //echo '<pre>';
-//print_r($sol);exit;
+//print_r($ft);exit;
 ?>
 
 <!-- Page Heading -->
@@ -16,8 +19,17 @@ $sol = $solicitacaoDAO->listaSolicitacao($id_sol);
             <li>
                 <i class="fa fa-home"></i>  <a href="minhavisao.php">Minha Visão</a>
             </li>
-            <li class="active">
-                <i class="fa fa-edit"></i> Nova Ficha Técnica
+            <li class="hidden-xs">
+                <i class="fa fa-list-alt"></i>  <a href="lista-solicitacoes.php">Solicitações</a>
+            </li>
+            <li class="hidden-xs">
+                <i class="fa fa-table"></i>  <a href="lista-solicitacao.php">Solicitação</a>
+            </li>
+            <li>
+                <i class="fa fa-table"></i>  <a href="lista-fichaTecnica.php">Ficha Técnica</a>
+            </li>
+            <li class="active hidden-xs">
+                <i class="fa fa-edit"></i> Altera Ficha Técnica
             </li>
         </ol>
     </div>
@@ -32,63 +44,80 @@ $sol = $solicitacaoDAO->listaSolicitacao($id_sol);
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Digite os dados da Ficha Técnica</h3>
+                        <h3 class="panel-title">Digite os novos dados da Ficha Técnica</h3>
                     </div>
                     <div class="panel-body">
                         <!-- Table -->
                         <div class="table-responsive">
 
-                            <form action="./Controller/FichaTecnicaController.php" method="post" name="cadFichaTecnica">
-                                <input type="hidden" name="acao" value="cadastra" >
-                                <table class="table table-bordered table-condensed" id="tbl-form">
+                            <form action="./Controller/FichaTecnicaController.php" method="post" name="altFichaTecnica">
+                                <input type="hidden" name="acao" value="altera" >
+                                <input type="hidden" name="id_ft" value="<?= $ft[0]->id_ft ?>" >
+                                <table class="table table-bordered table-condensed">
                                     <tr>
-                                        <th><label>Nome</label></th>
-                                        <td><input class="form-control" type="text" required="true" id="nome_ft" name="nome_ft"></td>
+                                        <th><label>Número</label></th>
+                                        <td><input class="form-control" disabled="true" type="text" id="id_ft" name="nome_ft" 
+                                                   value="<?= $ft[0]->id_ft ?>"></td>
                                     </tr>
                                     <tr>
-                                        <th><label>Data de Início</label></th>
-                                        <td><input class="form-control" type="date" required="true" id="dataInicial_ft" name="dataInicial_ft"/></td>
+                                        <th><label>Nome</label></th>
+                                        <td><input class="form-control" type="text" id="nome_ft" name="nome_ft" 
+                                                   value="<?= $ft[0]->nome_ft ?>"></td>
+                                    </tr>
+                                    <tr>
+                                        <th><label>Status</label></th>
+                                        <td><input class="form-control" type="text" id="status_ft" name="status_ft" 
+                                                   value="<?= $ft[0]->status_ft ?>"></td>
                                     </tr>
                                     <tr>
                                         <th><label>Data de Fim</label></th>
-                                        <td><input class="form-control" type="date" required="true" id="dataFinal_ft" name="dataFinal_ft"/></td>
+                                        <td><input class="form-control" type="date" id="dataFinal_ft" name="dataFinal_ft"
+                                                   value="<?= $ft[0]->dataFinal_ft ?>"></td>
                                     </tr>
                                     <tr>
                                         <th><label>Tempo de Teste</label></th>
-                                        <td><input class="form-control" type="number" required="true" id="tempoTeste_ft" name="tempoTeste_ft" min="0" /></td>
+                                        <td><input class="form-control" type="number" id="tempoTeste_ft" name="tempoTeste_ft" min="0" 
+                                                   value="<?= $ft[0]->tempoTeste_ft ?>"></td>
                                     </tr>
                                     <tr>
                                         <th><label>Local do Teste</label></th>
-                                        <td><input class="form-control" type="text" required="true" id="localTeste_ft" name="localTeste_ft"></td>
+                                        <td><input class="form-control" type="text" id="localTeste_ft" name="localTeste_ft"
+                                                   value="<?= $ft[0]->localTeste_ft ?>"></td>
                                     </tr>
                                     <tr>
                                         <th><label>Cliente</label></th>
-                                        <td><input class="form-control" type="text" required="true" id="cliente_ft" name="cliente_ft"></td>
+                                        <td><input class="form-control" type="text" id="cliente_ft" name="cliente_ft"
+                                                   value="<?= $ft[0]->cliente_ft ?>"></td>
                                     </tr>
                                     <tr>
                                         <th><label>Acompanhamento</label></th>
-                                        <td><input class="form-control" type="text" id="acompanhamento_ft" name="acompanhamento_ft"></td>
+                                        <td><input class="form-control" type="text" id="acompanhamento_ft" name="acompanhamento_ft"
+                                                   value="<?= $ft[0]->acompanhamento_ft ?>"></td>
                                     </tr>
                                     <tr>
                                         <th><label>Componentes</label></th>
-                                        <td><textarea class="form-control" id="componentes_ft" required="true" name="componentes_ft" rows="6" cols="80"></textarea></td>
+                                        <td><textarea class="form-control" id="componentes_ft" name="componentes_ft" 
+                                                      rows="6" cols="80"><?= $ft[0]->componentes_ft ?></textarea></td>
                                     </tr>
                                     <tr>
                                         <th><label>Metodologia</label></th>
-                                        <td><textarea class="form-control" id="metodologia_ft" required="true" name="metodologia_ft" rows="6" cols="80"></textarea></td>
+                                        <td><textarea class="form-control" id="metodologia_ft" name="metodologia_ft" 
+                                                      rows="6" cols="80"><?= $ft[0]->metodologia_ft ?></textarea></td>
                                     </tr>
                                     <tr>
                                         <th><label>Comportamento</label></th>
-                                        <td><textarea class="form-control" id="comportamento_ft" required="true" name="comportamento_ft" rows="10" cols="80"></textarea></td>
+                                        <td><textarea class="form-control" id="comportamento_ft" name="comportamento_ft" 
+                                                      rows="10" cols="80"><?= $ft[0]->comportamento_ft ?></textarea></td>
                                     </tr>
                                     <tr>
                                         <th><label>Observações</label></th>
-                                        <td><textarea class="form-control" id="observacoes_ft" name="observacoes_ft" rows="5" cols="80"></textarea></td>
+                                        <td><textarea class="form-control" id="observacoes_ft" name="observacoes_ft" 
+                                                      rows="5" cols="80"><?= $ft[0]->observacoes_ft ?></textarea></td>
                                     </tr>
 <!--                                    <tr>
                                         <th><label>Enviar arquivos</label></th>
                                         <td>
-                                            <input type="hidden" name="max_file_size" value="104857600" />
+                                            <input type="hidden" name="max_file_size" value="104857600" >
                                             <div class="dropzone center">
                                                 <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i><br>
                                                 <span class="bigger-150 grey">Arraste os arquivos até aqui para carregá-los (ou clique)</span>
@@ -96,7 +125,7 @@ $sol = $solicitacaoDAO->listaSolicitacao($id_sol);
                                             </div>
                                             <div class="fallback">
                                                 <div class="dz-message" data-dz-message></div>
-                                                <input tabindex="14" id="ufile[]" name="ufile[]" type="file" size="60" />
+                                                <input tabindex="14" id="ufile[]" name="ufile[]" type="file" size="60" >
                                             </div>
                                         </td>
                                     </tr>-->
@@ -104,13 +133,13 @@ $sol = $solicitacaoDAO->listaSolicitacao($id_sol);
                                         <th><label>Visibilidade</label></th>
                                         <td>
                                             <label>
-                                                <input class="custom-control-input" type="radio" name="visibilidade_ft"  checked="true" <?= $FichaTecnica->Privado ?> value="Privado"/>
+                                                <input class="custom-control-input" type="radio" name="visibilidade_ft"  checked="true" <?= $FichaTecnica->PR ?> value="PR">
                                                 <span class="custom-control-indicator"></span>
                                                 <span class="custom-control-description">Privado</span>
                                             </label>
                                             &#160;&#160;&#160;&#160;
                                             <label>
-                                                <input class="custom-control-input" type="radio" name="visibilidade_ft" <?= $FichaTecnica->Publico ?> value="Publico"/>
+                                                <input class="custom-control-input" type="radio" name="visibilidade_ft" <?= $FichaTecnica->PU ?> value="PU">
                                                 <span class="custom-control-indicator"></span>
                                                 <span class="custom-control-description">Público</span>
                                             </label>
@@ -120,13 +149,13 @@ $sol = $solicitacaoDAO->listaSolicitacao($id_sol);
                                         <th><label>Destaque</label></th>
                                         <td>
                                             <label>
-                                                <input class="custom-control-input" type="radio" name="destaque_ft"  checked="true" <?= $FichaTecnica->Sim ?> value="S"/>
+                                                <input class="custom-control-input" type="radio" name="destaque_ft"  checked="true" <?= $FichaTecnica->Sim ?> value="S">
                                                 <span class="custom-control-indicator"></span>
                                                 <span class="custom-control-description">Sim</span>
                                             </label>
                                             &#160;&#160;&#160;&#160;
                                             <label>
-                                                <input class="custom-control-input" type="radio" name="destaque_ft" <?= $FichaTecnica->Não ?> value="N"/>
+                                                <input class="custom-control-input" type="radio" name="destaque_ft" <?= $FichaTecnica->Não ?> value="N">
                                                 <span class="custom-control-indicator"></span>
                                                 <span class="custom-control-description">Não</span>
                                             </label>
@@ -134,9 +163,18 @@ $sol = $solicitacaoDAO->listaSolicitacao($id_sol);
                                     </tr>
 
                                 </table>
+
                                 <div>
-                                    <button type="submit" class="btn btn-primary col-xs-8 col-sm-4 col-md-4 col-lg-4 ">Cadastrar Ficha Técnica</button>
-                                    <button type="reset" class="btn btn-danger col-xs-4 col-sm-4 col-sm-offset-4 col-md-4  col-lg-4">Limpar</button>
+                                    <button type="submit" class="btn btn-primary col-xs-8 col-sm-4 col-md-4 col-lg-4 ">Atualizar Ficha Técnica</button>
+                                </div>
+                            </form>
+
+                            <form action="./Controller/SolicitacaoController.php" method="post" name="delSolicitacao">
+                                <input type="hidden" name="acao" value="deleta" >
+                                <input type="hidden" name="id_sol" value="<?= $sol[0]->id_sol ?>" >
+                                <input type="hidden" name="nome_sol" value="<?= $sol[0]->nome_sol ?>" >
+                                <div>
+                                    <button type="submit" class="btn btn-danger col-xs-4 col-sm-4 col-sm-offset-4 col-md-4 col-lg-4">Deletar</button>
                                 </div>
                             </form>
                         </div>
@@ -156,7 +194,7 @@ $sol = $solicitacaoDAO->listaSolicitacao($id_sol);
                     </div>
 
                     <div class="panel-body collapse in" id="collSolicitacao">
-                        <p><strong>ID: </strong><?= $sol[0]->id_sol ?></p>
+                        <p><strong>ID: </strong><?= $ft[0]->id_solicitacao_ft ?></p>
                         <p><strong>Nome: </strong><?= $sol[0]->nome_sol ?></p>
                     </div>
                 </div>

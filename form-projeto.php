@@ -1,7 +1,8 @@
 <?php
 include("cabecalho.php");
-?>
 
+?>
+    
 <!-- Page Heading -->
 <div class="row">
     <div class="col-lg-12">
@@ -15,12 +16,13 @@ include("cabecalho.php");
         </ol>
     </div>
 </div>
+
 <!-- /.row -->
 
 <div class="row">
     <div class="col-lg-12">
 
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Digite os dados do Projeto</h3>
             </div>
@@ -28,6 +30,8 @@ include("cabecalho.php");
                 <!-- Table -->
                 <div class="table-responsive">
                     <form action="./Controller/ProjetoController.php" method="post" name="cadProjeto">
+                        <input type="hidden" name="acao" value="cadastra" >
+                        
                         <table class="table table-bordered table-condensed">
                             <tr>
                                 <th><label>Nome</label></th>
@@ -39,7 +43,8 @@ include("cabecalho.php");
                             </tr>
                         </table>
                         <div>
-                            <button type="submit" class="btn btn-default">Criar Projeto</button>
+                            <button type="submit" class="btn btn-primary col-xs-8 col-sm-4 col-md-4 col-lg-4 ">Cadastrar Projeto</button>
+                            <button type="reset" class="btn btn-danger col-xs-4 col-sm-4 col-sm-offset-4 col-md-4  col-lg-4">Limpar</button>
                         </div>
                         
                     </form>

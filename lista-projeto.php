@@ -1,9 +1,18 @@
 <?php
 include("cabecalho.php");
 
-$id = $_GET['id'];
+$id_prj = $_SESSION['id_projeto'];
+$projetoDAO = new ProjetoDAO();
+$prj = $projetoDAO->listaProjeto($id_prj);
 
-session_start();
+$_SESSION['id_usuario'] = $prj[0]->id_usuario_prj;
+$usuarioDAO = new UsuarioDAO();
+$us = $usuarioDAO->listaUsuario($prj[0]->id_usuario_prj);
+
+$id_us_logado = $_SESSION['id_us'];
+$usuarioPegaPerfil = new UsuarioDAO();
+$pegaPerfil = $usuarioPegaPerfil->listaUsuario($id_us_logado);
+
 ?>
 
 <!-- Page Heading -->
@@ -17,7 +26,7 @@ session_start();
                 <i class="fa fa-list-alt"></i> <a href="lista-projetos.php">Projetos</a> 
             </li>
             <li class="active">
-                <i class="fa fa-list-alt"></i> Projeto
+                <i class="fa fa-table"></i> Projeto
             </li>
         </ol>
     </div>
@@ -27,48 +36,30 @@ session_start();
 <div class="row">
     <div class="col-lg-12">
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Filtros
-                    <i class="ace-icon fa bigger-125 fa-chevron-down" data-toggle="collapse" data-target="#collFiltros" 
-                       id="paineis-status"></i>
-                </h3>
-            </div>
-
-            <div class="panel-body collapse in" id="collFiltros">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped">
-
-                    </table>
-                </div>
-            </div>
-        </div>
-
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Informações do Projeto
-                    <a href="form-altera-projeto.php?id=<?= $pr->id_prj ?>">
-                        <i class="fa fa-pencil" aria-hidden="true" data-toggle="collapse" data-target="#collProjeto" 
-                           id="paineis-status"></i>
-                    </a>
+                    <?php
+                    if (($pegaPerfil[0]->perfil_us == 1) || ($pegaPerfil[0]->perfil_us == 2) || ($pegaPerfil[0]->perfil_us == 3)) {
+                        
+                        ?>
+                        <a onClick="defineSessao('id_projeto', '<?= $prj[0]->id_prj ?>', 'form-altera-projeto.php')">
+                            <i class="ace-icon fa bigger-125 fa-pencil" id="paineis-status"></i>
+                        </a>
+                        <?php
+                    }
+                    ?>
                 </h3>
             </div>
 
             <div class="panel-body collapse in" id="collProjeto">
-                <?php
-                    $projetoDAO = new ProjetoDAO();
-                    $projeto = $projetoDAO->listaProjeto($id);
-                    foreach ($projeto as $pr) :
-                ?>
-                    <p><strong>ID: </strong><?= $pr->id_prj ?></p>
-                    <p><strong>Nome: </strong><?= $pr->nome_prj ?></p>
-                    <p><strong>Descrição: </strong><?= $pr->descricao_prj ?></p>
-                    <p><strong>Status: </strong><?= $pr->status_prj ?></p>
 
+                <p><strong>ID: </strong><?= $prj[0]->id_prj ?></p>
+                <p><strong>Nome: </strong><?= $prj[0]->nome_prj ?></p>
+                <p><strong>Descrição: </strong><?= $prj[0]->descricao_prj ?></p>
+                <p><strong>Status: </strong><?= $prj[0]->status_prj ?></p>
+                <p><strong>Usuário: </strong><?= $us[0]->nome_us ?></p>
 
-                <?php
-                    endforeach
-                ?>
             </div>
         </div>
     </div>
